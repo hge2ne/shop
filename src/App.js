@@ -49,16 +49,24 @@ function App() {
                   </Container>
                 </Navbar>
                 <div className="main-bg"></div>
+                <Row md={4}>
+                  <Card shoes={shoes[0]} i={1} />
+                  {/* 상품정보: 0부터시작 */}
+                  <Card shoes={shoes[1]} i={2} />
+                  <Card shoes={shoes[2]} i={3} />
+                </Row>
               </>
             }
           />
           <Route path="/detail" element={<Detail />} />
+
+          <Route path="/about" element={<About />}>
+            <Route path="member" element={<div>멤버임</div>} />
+            <Route path="location" element={<div>위치정보임</div>} />
+          </Route>
           <Route path="*" element={<div>없는페이지임</div>} />
         </Routes>
       </div>
-      <Card shoes={shoes[0]} i={1} />
-      <Card shoes={shoes[0]} i={2} />
-      <Card shoes={shoes[0]} i={3} />
     </>
   );
 } //App 함수 끝
@@ -76,6 +84,15 @@ function Card(props) {
       <p>{props.shoes.price}</p>
       {/* 배열 "전체" 값 뚫어놓고 위에서 인덱스 주기 */}
     </Col>
+  );
+}
+
+function About() {
+  return (
+    <div>
+      <h4>회사정보임</h4>
+      <Outlet></Outlet>
+    </div>
   );
 }
 
