@@ -1,53 +1,50 @@
 import "./App.css";
 import { useState } from "react";
-import { Button, Navbar, Container, Nav, Row, Col } from "react-bootstrap";
+import { Navbar, Container, Nav, Row, Col } from "react-bootstrap";
 import data from "./data.js";
 import { Routes, Route, Link, useNavigate, Outlet } from "react-router-dom";
 import Detail from "./routes/Detail.js";
 
 function App() {
-  let [shoes] = useState(data);
+  let [shoes] =
+    useState(data); /* 직역: data.js 파일에 있는 데이터 가져와서 shoe로 선언 */
   let navigate = useNavigate();
-  //data.js 데이터 가져오기
-  /* 데이터 랜더링 성공 여부 확인법 */
-  console.log(shoes);
+  /* 데이터 랜더링 성공 여부 확인법:콘솔 */
   return (
     <>
-      <h1>hello</h1>;
       <div>
-        <Button variant="primary">Primary</Button>
         <Link></Link>
       </div>
       <div className="App">
+        <Navbar bg="dark" variant="dark">
+          <Container>
+            <Navbar.Brand href="#home">햄부기 농장</Navbar.Brand>
+            <Nav className="me-auto">
+              <Nav.Link
+                onClick={() => {
+                  navigate("/");
+                }}
+              >
+                Home
+              </Nav.Link>
+              <Nav.Link
+                onClick={() => {
+                  navigate("/detail");
+                }}
+              >
+                Detail
+              </Nav.Link>
+              {/* useNavigate :해당url로 이동 */}
+              <Nav.Link href="#features">Features</Nav.Link>
+              <Nav.Link href="#pricing">Pricing</Nav.Link>
+            </Nav>
+          </Container>
+        </Navbar>
         <Routes>
           <Route
             path="/"
             element={
               <>
-                <Navbar bg="dark" variant="dark">
-                  <Container>
-                    <Navbar.Brand href="#home">햄부기 농장</Navbar.Brand>
-                    <Nav className="me-auto">
-                      <Nav.Link
-                        onClick={() => {
-                          navigate("/");
-                        }}
-                      >
-                        Home
-                      </Nav.Link>
-                      <Nav.Link
-                        onClick={() => {
-                          navigate("/detail");
-                        }}
-                      >
-                        Detail
-                      </Nav.Link>
-                      {/* useNavigate :해당url로 이동 */}
-                      <Nav.Link href="#features">Features</Nav.Link>
-                      <Nav.Link href="#pricing">Pricing</Nav.Link>
-                    </Nav>
-                  </Container>
-                </Navbar>
                 <div className="main-bg"></div>
                 <Row md={4}>
                   <Card shoes={shoes[0]} i={1} />
@@ -58,7 +55,11 @@ function App() {
               </>
             }
           />
-          <Route path="/detail" element={<Detail />} />
+          <Route path="/detail/0" element={<Detail shoes={shoes} />} />
+          <Route path="/detail/1" element={<Detail shoes={shoes} />} />
+          <Route path="/detail/2" element={<Detail shoes={shoes} />} />
+
+          {/* detail페이지 상품명 인덱싱 */}
 
           <Route path="/about" element={<About />}>
             <Route path="member" element={<div>멤버임</div>} />
@@ -86,6 +87,7 @@ function Card(props) {
     </Col>
   );
 }
+
 
 function About() {
   return (
