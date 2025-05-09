@@ -1,6 +1,5 @@
 function Detail(){
-    return (
-        <div className="container">
+    <div className="container">
   <div className="row">
     <div className="col-md-6">
       <img src="https://codingapple1.github.io/shop/shoes1.jpg" width="100%" />
@@ -13,6 +12,5 @@ function Detail(){
     </div>
   </div>
 </div> 
-    )
-}//폴더에 컴포넌트 생성
+}
 export default Detail;
