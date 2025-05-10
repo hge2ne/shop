@@ -5,6 +5,7 @@ import data from "./data.js";
 import { Routes, Route, Link, useNavigate, Outlet } from "react-router-dom";
 import Detail from "./routes/Detail.js";
 
+
 function App() {
   let [shoes] =
     useState(data); /* 직역: data.js 파일에 있는 데이터 가져와서 shoe로 선언 */
