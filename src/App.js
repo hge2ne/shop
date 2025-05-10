@@ -4,9 +4,10 @@ import { Navbar, Container, Nav, Row, Col } from "react-bootstrap";
 import data from "./data.js";
 import { Routes, Route, Link, useNavigate, Outlet } from "react-router-dom";
 import Detail from "./routes/Detail.js";
+import axios from "axios";
 
 function App() {
-  let [shoes] =
+  let [shoes, setShoes] =
     useState(data); /* 직역: data.js 파일에 있는 데이터 가져와서 shoe로 선언 */
   let navigate = useNavigate();
   /* 데이터 랜더링 성공 여부 확인법:콘솔 */
@@ -44,12 +45,23 @@ function App() {
               <>
                 <div className="main-bg"></div>
                 <Row md={4}>
-                  <Card shoes={shoes[0]} />
-                  {/* 상품정보: 0부터시작 */}
-                  <Card shoes={shoes[1]} />
-                  <Card shoes={shoes[2]} />
+                  {shoes.map((item,i)=>(
+                    <Card shoes={item} key={i} />
+                  ))}
                 </Row>
-                <button onClick={() => {}}>버튼</button>
+                <button
+                  onClick={() => {
+                    axios
+                      .get("https://codingapple1.github.io/shop/data2.json")
+                      .then((result) => {
+                        let copy = [...shoes, ...result.data];
+                        setShoes(copy);
+                      });
+                  }}
+                >
+                  더보기
+                </button>
+                {/* ajax 요청 */}
               </>
             }
           />
