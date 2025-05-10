@@ -5,7 +5,6 @@ import data from "./data.js";
 import { Routes, Route, Link, useNavigate, Outlet } from "react-router-dom";
 import Detail from "./routes/Detail.js";
 
-
 function App() {
   let [shoes] =
     useState(data); /* 직역: data.js 파일에 있는 데이터 가져와서 shoe로 선언 */
@@ -13,9 +12,6 @@ function App() {
   /* 데이터 랜더링 성공 여부 확인법:콘솔 */
   return (
     <>
-      <div>
-        <Link></Link>
-      </div>
       <div className="App">
         <Navbar bg="dark" variant="dark">
           <Container>
@@ -48,17 +44,16 @@ function App() {
               <>
                 <div className="main-bg"></div>
                 <Row md={4}>
-                  <Card shoes={shoes[0]} i={1} />
+                  <Card shoes={shoes[0]} />
                   {/* 상품정보: 0부터시작 */}
-                  <Card shoes={shoes[1]} i={2} />
-                  <Card shoes={shoes[2]} i={3} />
+                  <Card shoes={shoes[1]} />
+                  <Card shoes={shoes[2]} />
                 </Row>
+                <button onClick={() => {}}>버튼</button>
               </>
             }
           />
-          <Route path="/detail/0" element={<Detail shoes={shoes} />} />
-          <Route path="/detail/1" element={<Detail shoes={shoes} />} />
-          <Route path="/detail/2" element={<Detail shoes={shoes} />} />
+          <Route path="/detail/:id" element={<Detail shoes={shoes} />} />
 
           {/* detail페이지 상품명 인덱싱 */}
 
@@ -76,19 +71,24 @@ function App() {
 function Card(props) {
   return (
     <Col>
-      <img
-        alt=""
-        src={"https://codingapple1.github.io/shop/shoes" + props.i + ".jpg"}
-        width="80%"
-      />
-      {/*  이미지이름 숫자 변수로 이용하기 +props.i+'.jpg'*/}
-      <h4>{props.shoes.title}</h4>
-      <p>{props.shoes.price}</p>
-      {/* 배열 "전체" 값 뚫어놓고 위에서 인덱스 주기 */}
+      <Link to={`/detail/${props.shoes.id}`}>
+        <img
+          alt=""
+          src={
+            "https://codingapple1.github.io/shop/shoes" +
+            (props.shoes.id + 1) +
+            ".jpg"
+          }
+          width="80%"
+        />
+        {/*  이미지이름 숫자 변수로 이용하기 +props.i+'.jpg'*/}
+        <h4>{props.shoes.title}</h4>
+        <p>{props.shoes.price}</p>
+        {/* 배열 "전체" 값 뚫어놓고 위에서 인덱스 주기 */}
+      </Link>
     </Col>
   );
 }
-
 
 function About() {
   return (
