@@ -4,7 +4,8 @@ import { Navbar, Container, Nav, Row, Col } from "react-bootstrap";
 import data from "./data.js";
 import { Routes, Route, Link, useNavigate, Outlet } from "react-router-dom";
 import Detail from "./routes/Detail.js";
-import axios from "axios";
+import axios from "axios"; 
+import Cart from './Cart.js'
 
 function App() {
   let [shoes, setShoes] =
@@ -74,6 +75,10 @@ function App() {
             <Route path="location" element={<div>위치정보임</div>} />
           </Route>
           <Route path="*" element={<div>없는페이지임</div>} />
+          <Route path="/cart" element={<Cart/>}/>
+          {/* 리덕스 장바구니 페이지 만들기
+          직역 : 누가 /cart로 접속하면 <Cart> 컴포넌트 보여줘
+          */}
         </Routes>
       </div>
     </>

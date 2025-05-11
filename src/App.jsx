@@ -2,7 +2,7 @@ import "./App.css";
 import { useState } from "react";
 import { Button, Navbar, Container, Nav, Row, Col } from "react-bootstrap";
 import data from "./data.js";
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home.jsx";
 import About from "./pages/About.jsx";
 
