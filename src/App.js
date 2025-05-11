@@ -99,6 +99,7 @@ function Card(props) {
         {/* 배열 "전체" 값 뚫어놓고 위에서 인덱스 주기 */}
       </Link>
     </Col>
+    
   );
 }
 

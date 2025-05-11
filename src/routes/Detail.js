@@ -1,6 +1,8 @@
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
+import { Nav } from "react-bootstrap";
+import '../App.css';
 
 let YellowBtn = styled.button`
   background: ${(props) => props.bg};
@@ -17,6 +19,15 @@ function Detail(props) {
 
   //let [count, setCount] = useState(0);
   let [alert, setAlert] = useState(true);
+  let [탭, 탭변경] = useState(0);
+  let [fade2,setFade2] = useState('')
+
+  useEffect(()=>{
+   setTimeout(()=>{setFade2('end')}) 
+    return(()=>{
+      setFade2('')
+    })
+  },[])
 
   useEffect(() => {
     let a = setTimeout(() => {
@@ -36,7 +47,7 @@ function Detail(props) {
   return (
     <div className="container">
       {alert == true ? (
-        <div className="alert alert-warning">2초 이내 구매시 할인</div>
+        <div className={"alert alert-warning start " + fade2}>2초 이내 구매시 할인</div>
       ) : null}
       <YellowBtn>버튼</YellowBtn>
       <YellowBtn bg="green">버튼</YellowBtn>
@@ -50,17 +61,66 @@ function Detail(props) {
             }
             width="100%"
           />
+          <div className="col-md-6 mt-4">
+            <h4 className="pt-5">{찾은상품.title}</h4>
+            {/* 상품명 인덱싱 */}
+            <p>{찾은상품.content}</p>
+            <p>{찾은상품.price}원</p>
+            <button className="btn btn-danger">주문하기</button>
+          </div>
         </div>
-        <div className="col-md-6 mt-4">
-          <h4 className="pt-5">{찾은상품.title}</h4>
-          {/* 상품명 인덱싱 */}
-          <p>{찾은상품.content}</p>
-          <p>{찾은상품.price}원</p>
-          <button className="btn btn-danger">주문하기</button>
-        </div>
+        <Nav variant="tabs" defaultActiveKey="link0">
+          <Nav.Item>
+            <Nav.Link
+              onClick={() => {
+                탭변경(0);
+              }}
+              eventKey="link0"
+            >
+              버튼0
+            </Nav.Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Nav.Link
+              onClick={() => {
+                탭변경(1);
+              }}
+              eventKey="link1"
+            >
+              버튼1
+            </Nav.Link>
+          </Nav.Item>
+          <Nav.Item>
+            <Nav.Link
+              onClick={() => {
+                탭변경(2);
+              }}
+              eventKey="link2"
+            >
+              버튼2
+            </Nav.Link>
+          </Nav.Item>
+        </Nav>
+        <TabContent 탭={탭} />
       </div>
     </div>
   );
 }
+function TabContent({ 탭 }) {
+  let [fade, setFade] = useState("");
 
+  useEffect(() => {
+    setTimeout(() => {
+      setFade("end");
+    }, 100);
+    return () => {
+      setFade('');
+    };
+  }, [탭]);
+  return (
+    <div className={'start ' + fade}>
+      {[<div>내용0</div>, <div>내용1</div>, <div>내용2</div>][탭]}
+    </div>
+  );
+}
 export default Detail;
