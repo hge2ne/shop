@@ -2,12 +2,8 @@ import { Table } from "react-bootstrap"; //부트스트랩에서 가져옴
 import { useSelector, useDispatch } from "react-redux";
 import { changeAge, addCount } from "./store.js";
 
-function Cart(state=initialState,action) {
-  switch(action.type){
-    case 'addItem':{
-      const found = state.find
-    }
-  }
+function Cart() {
+ 
   let state = useSelector((state) => state);
   console.log(state.cart[0].name); //밑에 컴포넌트랑 관련 X
   let dispatch = useDispatch();
