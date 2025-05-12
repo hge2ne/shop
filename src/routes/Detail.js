@@ -30,6 +30,8 @@ function Detail(props) {
     localStorage.getItem('watched')//로컬스토리지에서 arr 꺼냄
     꺼낸자료 = JSON.parse(꺼낸자료)//꺼낸 자료를 다시 원본에 넣음
     꺼낸자료.push(찾은상품.id)//처음 추가 상품은 arr에 추가
+    꺼낸자료=new Set(꺼낸자료)
+    꺼낸자료 = Array.from(꺼낸자료)
     localStorage.setItem('watched',JSON.stringify(꺼낸자료))//자료 저장
   },[])
 
