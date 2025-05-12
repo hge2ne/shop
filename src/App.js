@@ -1,5 +1,5 @@
 import "./App.css";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { Navbar, Container, Nav, Row, Col } from "react-bootstrap";
 import data from "./data.js";
 import { Routes, Route, Link, useNavigate, Outlet } from "react-router-dom";
@@ -8,6 +8,10 @@ import axios from "axios";
 import Cart from './Cart.js'
 
 function App() {
+
+  useEffect(()=>{
+    localStorage.setItem('watched',JSON.stringify([]))
+  },[])
   let [shoes, setShoes] =
     useState(data); /* 직역: data.js 파일에 있는 데이터 가져와서 shoe로 선언 */
   let navigate = useNavigate();
@@ -34,7 +38,9 @@ function App() {
                 Detail
               </Nav.Link>
               {/* useNavigate :해당url로 이동 */}
-              <Nav.Link href="#features">Features</Nav.Link>
+              <Nav.Link onClick={()=>{
+                navigate("/cart")
+              }}>Cart</Nav.Link>
               <Nav.Link href="#pricing">Pricing</Nav.Link>
             </Nav>
           </Container>

@@ -1,8 +1,10 @@
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { Nav } from "react-bootstrap";
 import '../App.css';
+import { addItem } from "../store";
+import { useDispatch } from "react-redux";
 
 let YellowBtn = styled.button`
   background: ${(props) => props.bg};
@@ -21,6 +23,16 @@ function Detail(props) {
   let [alert, setAlert] = useState(true);
   let [탭, 탭변경] = useState(0);
   let [fade2,setFade2] = useState('')
+  let dispatch=useDispatch();
+
+  useEffect(()=>{
+    let 꺼낸자료 =
+    localStorage.getItem('watched')//로컬스토리지에서 arr 꺼냄
+    꺼낸자료 = JSON.parse(꺼낸자료)//꺼낸 자료를 다시 원본에 넣음
+    꺼낸자료.push(찾은상품.id)//처음 추가 상품은 arr에 추가
+    localStorage.setItem('watched',JSON.stringify(꺼낸자료))//자료 저장
+  },[])
+
 
   useEffect(()=>{
    setTimeout(()=>{setFade2('end')}) 
@@ -43,7 +55,7 @@ function Detail(props) {
   if (!찾은상품) {
     return <div>상품을 찾을 수 없습니다.</div>;
   }
-
+ 
   return (
     <div className="container">
       {alert == true ? (
@@ -66,7 +78,9 @@ function Detail(props) {
             {/* 상품명 인덱싱 */}
             <p>{찾은상품.content}</p>
             <p>{찾은상품.price}원</p>
-            <button className="btn btn-danger">주문하기</button>
+            <button className="btn btn-danger" onClick={()=>{
+              dispatch(addItem({id:찾은상품.id,name:찾은상품.title,count:1}))//상품 처음 추가 : 수량 1고정/그 뒤는 작동 잘함.
+            }}>주문하기</button>
           </div>
         </div>
         <Nav variant="tabs" defaultActiveKey="link0">
@@ -124,3 +138,4 @@ function TabContent({ 탭 }) {
   );
 }
 export default Detail;
+

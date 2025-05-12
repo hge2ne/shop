@@ -1,18 +1,23 @@
 import { Table } from "react-bootstrap"; //부트스트랩에서 가져옴
 import { useSelector, useDispatch } from "react-redux";
-import { changeName,changeAge } from "./store.js";
+import { changeAge, addCount } from "./store.js";
 
-
-function Cart() {
+function Cart(state=initialState,action) {
+  switch(action.type){
+    case 'addItem':{
+      const found = state.find
+    }
+  }
   let state = useSelector((state) => state);
   console.log(state.cart[0].name); //밑에 컴포넌트랑 관련 X
   let dispatch = useDispatch();
   return (
     <>
-    <h6>{state.user.name}{state.user.age}의 장바구니</h6>
-    <button onClick={()=>
-      dispatch(changeAge())
-    }>버튼</button>
+      <h6>
+        {state.user.name}
+        {state.user.age}의 장바구니
+      </h6>
+      <button onClick={() => dispatch(changeAge())}>버튼</button>
       <Table>
         <thead>
           <tr>
@@ -25,13 +30,14 @@ function Cart() {
         <tbody>
           {state.cart.map((a, i) => (
             <tr key={i}>
-              <td>{i + 1}</td>
+              <td>{state.cart[i].id}</td>
               <td>{state.cart[i].name}</td>
               <td>
                 {state.cart[i].count}
                 <button
                   onClick={() => {
-                    dispatch(changeName());
+                    dispatch(addCount(state.cart[i].id));
+                    //배열오류 보완 위해 (i)가 아닌 id요소에 +1
                   }}
                 >
                   +
